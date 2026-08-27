@@ -12,6 +12,9 @@
     "uitoolkit": "file:../uitoolkit"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "daisyui": "^5.7.22",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.9.2",
     "vite": "^7.1.1"
   }

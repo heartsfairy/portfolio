@@ -1,84 +1,385 @@
 import { EventableUIDrawable } from "uitoolkit/lib/ui/components/standard/eventable.js";
-import { ui, runtime } from "./runtime";
+import { language, type PortfolioProject } from "./language/en";
+import { runtime, ui } from "./runtime";
 import "./styles.css";
 
-type Project = { name: string; category: string; summary: string; details: string; insight: string; stack: string };
-const projects: Project[] = [
-  { name: "TypeScript UI Toolkit", category: "Developer Tools", summary: "A framework-independent UI platform built around typed drawables and direct, controlled DOM updates.", details: "Provides component lifecycles, observable storage, routing, serialization, event handling, typed models, and theme abstraction. This portfolio is rendered by the toolkit itself.", insight: "A UI foundation", stack: "TypeScript · DOM adapters · RxJS · Tailwind themes" },
-  { name: "Motorsports Telemetery", category: "Real-time Systems", summary: "A configurable cross-platform dashboard for live racing telemetry.", details: "60Hz streams through WebSockets and gRPC-Web, presenting configurable telemetery data panels in browser and desktop-webview environments.", insight: "High-performance data", stack: "TypeScript · gRPC-Web · WebSockets · Vite · Tauri" },
-  { name: "Pay Analysis", category: "Mobile + Backend", summary: "An offer-intelligence system created from direct gig-driving experience.", details: "Uses ReplayKit and Vision OCR to capture offer cards, calculate mileage, hourly earnings, vehicle cost, and estimated profit, then synchronizes normalized data with Python and gRPC services.", insight: "Offers statistical analysis", stack: "Swift · ReplayKit · Vision OCR · Python · gRPC" }
-];
+type Meta = Record<string, unknown>;
+type ExperienceRole = (typeof language.experience.roles)[number];
 
-const tag = (name: string, meta: Record<string, unknown>) => ui[`${name}_tag`](meta);
+const resumePath = "Violet_Whiting_Resume.pdf";
+const spectrumColors = ["red", "orange", "yellow", "green", "cyan", "blue", "violet"];
 
-const projectCard = (project: Project, index: number) => tag("details", {
-  class: `project-card project-card-${index + 1}`,
-  html: [
-    tag("summary", {
-      class: "project-summary",
-      html: [
-        tag("span", { class: "project-number", text: `0${index + 1}` }),
-        tag("span", { class: "eyebrow", text: project.category }),
-        tag("h3", { text: project.name }),
-        tag("p", { class: "summary", text: project.summary }),
-        tag("p", { class: "stack", text: project.stack }),
-        tag("span", {
-          class: "text-button",
-          html: [
-            tag("span", { class: "view-label", text: "View case study" }),
-            tag("span", { class: "hide-label", text: "Close case study" }),
-            tag("span", { class: "toggle-icon", "aria-hidden": "true", text: "+" }),
-          ],
-        }),
-      ],
-    }),
-    tag("div", {
-      class: "case-study",
-      html: [
-        tag("span", { class: "case-label", text: "ENGINEERING OVERVIEW" }),
-        tag("h4", { class: "text-xs", text: project.insight }),
-        tag("p", { text: project.details }),
-      ],
-    }),
-  ],
-});
+const cx = (...classes: string[]) => classes.filter(Boolean).join(" ");
+const tag = (name: string, meta: Meta) => ui[`${name}_tag`](meta);
+
+const applyMetadata = () => {
+  document.title = language.meta.title;
+  document
+    .querySelector('meta[name="description"]')
+    ?.setAttribute("content", language.meta.description);
+};
+
+const createProjectCard = (project: PortfolioProject, index: number) =>
+  tag("details", {
+    class: cx(
+      "card project-card relative min-w-0 overflow-hidden rounded-[1.15rem]",
+      `project-card-${index + 1}`,
+    ),
+    html: [
+      tag("summary", {
+        class: cx(
+          "project-summary flex min-h-[350px] cursor-pointer list-none",
+          "flex-col p-6 max-[850px]:min-h-0",
+        ),
+        html: [
+          tag("span", {
+            class: "project-number self-end font-mono text-xs",
+            text: `${language.work.projectNumberPrefix}${index + 1}`,
+          }),
+          tag("span", { class: "eyebrow", text: project.category }),
+          tag("h3", {
+            class: "card-title my-3 text-2xl leading-tight tracking-tight",
+            text: project.name,
+          }),
+          tag("p", { class: "summary m-0 grow", text: project.summary }),
+          tag("p", {
+            class: "stack my-5 font-mono text-xs leading-relaxed",
+            text: project.stack,
+          }),
+          tag("span", {
+            class: cx(
+              "text-button mt-2 flex items-center justify-between gap-4",
+              "border-t pt-3 text-sm font-bold",
+            ),
+            html: [
+              tag("span", {
+                class: "view-label",
+                text: language.work.caseStudy.open,
+              }),
+              tag("span", {
+                class: "hide-label",
+                text: language.work.caseStudy.close,
+              }),
+              tag("span", {
+                class: "toggle-icon grid size-7 place-items-center rounded-full text-xl",
+                "aria-hidden": "true",
+                text: language.work.caseStudy.toggleSymbol,
+              }),
+            ],
+          }),
+        ],
+      }),
+      tag("div", {
+        class: "card-body case-study border-t p-[clamp(1.8rem,4vw,3.4rem)]",
+        html: [
+          tag("span", {
+            class: "case-label",
+            text: language.work.caseStudy.eyebrow,
+          }),
+          tag("h4", {
+            class: "my-4 text-[clamp(.9rem,1vw,2rem)] leading-none tracking-tight",
+            text: project.insight,
+          }),
+          tag("p", {
+            class: "m-0 max-w-[62ch] text-sm",
+            text: project.details,
+          }),
+        ],
+      }),
+    ],
+  });
+
+const createHeader = () =>
+  tag("header", {
+    class: cx(
+      "navbar site-header sticky top-0 z-20 min-h-0 justify-between border-b",
+      "px-[clamp(1.25rem,5vw,5rem)] py-4 backdrop-blur-lg",
+    ),
+    html: [
+      tag("a", {
+        class: "brand inline-flex items-center gap-3 text-xs font-extrabold tracking-[.14em]",
+        href: "#top",
+        text: language.navigation.brand,
+      }),
+      tag("nav", {
+        class: "flex gap-6 text-sm font-semibold max-[560px]:gap-4",
+        "aria-label": language.navigation.ariaLabel,
+        html: [
+          tag("a", {
+            class: "max-[560px]:hidden",
+            href: "#work",
+            text: language.navigation.work,
+          }),
+          tag("a", {
+            class: "max-[560px]:hidden",
+            href: "#experience",
+            text: language.navigation.experience,
+          }),
+          tag("a", {
+            href: resumePath,
+            target: "_blank",
+            text: language.navigation.resume,
+          }),
+        ],
+      }),
+    ],
+  });
+
+const createHero = () => {
+  const actions = tag("div", {
+    class: "mt-8 flex flex-wrap gap-3",
+    html: [
+      tag("a", {
+        class: "btn primary rounded-full border-0 max-[560px]:w-full",
+        href: "#work",
+        text: language.hero.primaryAction,
+      }),
+      tag("a", {
+        class: "btn btn-outline secondary rounded-full max-[560px]:w-full",
+        href: `mailto:${language.contact.email}`,
+        text: language.hero.secondaryAction,
+      }),
+    ],
+  });
+
+  const copy = tag("div", {
+    class: cx(
+      "hero-content hero-copy relative z-[2] w-[min(920px,86%)]",
+      "max-w-none justify-start p-0 max-[850px]:w-full",
+    ),
+    html: [
+      tag("div", {
+        class: "w-full",
+        html: [
+          tag("span", {
+            class: "badge badge-outline eyebrow h-auto py-2",
+            text: language.hero.eyebrow,
+          }),
+          tag("h1", {
+            class: cx(
+              "my-6 max-w-[940px] text-[clamp(2.4rem,5vw,6rem)]",
+              "font-bold leading-[.93] tracking-[-.064em] text-balance",
+              "max-[560px]:text-[clamp(3rem,15vw,4.4rem)]",
+            ),
+            text: language.hero.title,
+          }),
+          tag("p", {
+            class: "lede m-0 max-w-[730px] text-[clamp(1.1rem,2vw,1.42rem)]",
+            text: language.hero.introduction,
+          }),
+          actions,
+        ],
+      }),
+    ],
+  });
+
+  const spectrum = tag("div", {
+    class: "spectrum",
+    "aria-hidden": "true",
+    html: spectrumColors.map(color =>
+      tag("span", { class: `spectrum-${color}` }),
+    ),
+  });
+
+  return tag("section", {
+    class: cx(
+      "hero relative isolate mx-auto min-h-[min(780px,86vh)] w-full",
+      "max-w-[1180px] px-[clamp(1.25rem,5vw,3rem)]",
+      "py-[clamp(5rem,10vw,9rem)] max-[560px]:min-h-[78vh] max-[560px]:pt-26",
+    ),
+    html: [copy, spectrum],
+  });
+};
+
+const createWork = (
+  filters: EventableUIDrawable[],
+  projects: readonly PortfolioProject[],
+) =>
+  tag("section", {
+    id: "work",
+    class: cx(
+      "section mx-auto w-full max-w-[1180px] border-t",
+      "px-[clamp(1.25rem,5vw,3rem)] py-[clamp(5rem,10vw,9rem)]",
+    ),
+    html: [
+      tag("div", {
+        class: cx(
+          "grid grid-cols-[.6fr_1.4fr] items-end gap-8",
+          "max-[850px]:grid-cols-1 max-[850px]:gap-2",
+        ),
+        html: [
+          tag("span", {
+            class: "eyebrow pb-3",
+            text: language.work.eyebrow,
+          }),
+          tag("h2", {
+            class: "section-title",
+            text: language.work.title,
+          }),
+        ],
+      }),
+      tag("div", {
+        class: cx(
+          "filters my-10 flex gap-2 overflow-x-auto pb-2",
+          "max-[560px]:-mx-5 max-[560px]:px-5",
+        ),
+        html: filters,
+      }),
+      tag("div", {
+        class: "project-grid grid grid-cols-3 items-start gap-4 max-[850px]:grid-cols-1",
+        html: projects.map(project =>
+          createProjectCard(project, language.projects.indexOf(project)),
+        ),
+      }),
+    ],
+  });
+
+const createRole = (role: ExperienceRole) =>
+  tag("article", {
+    class: "relative border-l pb-11 pl-8 pt-1",
+    html: [
+      tag("h3", {
+        class: "mb-1 text-lg font-bold",
+        text: role.title,
+      }),
+      tag("span", {
+        class: "font-mono text-xs",
+        text: role.period,
+      }),
+      tag("p", {
+        class: "mb-0",
+        text: role.description,
+      }),
+    ],
+  });
+
+const createExperience = () =>
+  tag("section", {
+    id: "experience",
+    class: cx(
+      "section experience mx-auto grid w-full max-w-[1180px]",
+      "grid-cols-[.82fr_1.18fr] gap-[clamp(2rem,7vw,6rem)] border-t",
+      "px-[clamp(1.25rem,5vw,3rem)] py-[clamp(5rem,10vw,9rem)]",
+      "max-[850px]:grid-cols-1",
+    ),
+    html: [
+      tag("div", {
+        class: "sticky top-28 self-start max-[850px]:static",
+        html: [
+          tag("span", {
+            class: "eyebrow",
+            text: language.experience.eyebrow,
+          }),
+          tag("h2", {
+            class: "section-title mt-4",
+            text: language.experience.title,
+          }),
+        ],
+      }),
+      tag("div", {
+        class: "timeline",
+        html: language.experience.roles.map(createRole),
+      }),
+    ],
+  });
+
+const createContact = () =>
+  tag("section", {
+    class: cx(
+      "card contact relative mx-auto w-full max-w-[1180px] overflow-hidden",
+      "rounded-[1.4rem] border px-[clamp(1.25rem,5vw,3rem)]",
+      "py-[clamp(5rem,10vw,9rem)] text-center",
+    ),
+    html: [
+      tag("span", {
+        class: "eyebrow",
+        text: language.contact.eyebrow,
+      }),
+      tag("h2", {
+        class: "section-title mx-auto my-4",
+        text: language.contact.title,
+      }),
+      tag("a", {
+        class: "btn primary mx-auto mt-4 rounded-full border-0",
+        href: `mailto:${language.contact.email}`,
+        text: language.contact.email,
+      }),
+    ],
+  });
+
+const createFooter = () =>
+  tag("footer", {
+    class: cx(
+      "footer footer-horizontal mt-16 flex justify-between gap-4 border-t",
+      "px-[clamp(1.25rem,5vw,5rem)] py-8 text-sm max-[560px]:flex-col",
+    ),
+    html: [
+      tag("span", { text: language.footer.credit }),
+      tag("span", { text: language.footer.location }),
+    ],
+  });
 
 class Portfolio extends EventableUIDrawable {
-  filter = "All";
-  _render(target: any, attach = true): HTMLElement {
-    const filters = ["All", ...projects.map(p => p.category)].map(name => ui.btn({
-      class: `filter ${this.filter === name ? "active" : ""}`,
-      text: name,
-      type: "button",
-      click: () => {
-        this.filter = name;
-        const destination = this.parent ?? this.target;
-        if (destination) {
-          this.reset();
-          this.render(destination, true);
-        }
-      },
-    }));
-    const visible = projects.filter(p => this.filter === "All" || p.category === this.filter);
-    this.uit_data.html = [
-      tag("header", { class: "site-header", html: [tag("a", { class: "brand", href: "#top", text: "VW / ENGINEERING" }), tag("nav", { "aria-label": "Primary", html: [tag("a", { href: "#work", text: "Work" }), tag("a", { href: "#experience", text: "Experience" }), tag("a", { href: "/Violet_Whiting_Resume.pdf", target: "_blank", text: "Résumé" })] })] }),
-      tag("main", {
-        id: "top", html: [
-          tag("section", {
-            class: "hero", html: [
-              tag("div", { class: "hero-copy", html: [tag("span", { class: "eyebrow", text: "FORMER QUALCOMM SENIOR STAFF ENGINEER" }), tag("h1", { text: "Developer tools, backend platforms, and systems built to last." }), tag("p", { class: "lede", text: "I'm Violet Whiting, a software engineer with 15+ years of experience building APIs, CI/CD infrastructure, real-time applications, and cross-platform products." }), tag("div", { class: "actions", html: [tag("a", { class: "primary", href: "#work", text: "Explore selected work" }), tag("a", { class: "secondary", href: "mailto:thebotsupra@gmail.com", text: "Get in touch" })] })] }),
-              tag("div", { class: "spectrum", "aria-hidden": "true", html: ["red", "orange", "yellow", "green", "cyan", "blue", "violet"].map(color => tag("span", { class: `spectrum-${color}` })) }),
-            ]
-          }),
-          tag("section", { id: "work", class: "section", html: [tag("div", { class: "section-heading", html: [tag("span", { class: "eyebrow", text: "SELECTED WORK" }), tag("h2", { text: "Products shaped by real engineering problems" })] }), tag("div", { class: "filters", html: filters }), tag("div", { class: "project-grid", html: visible.map(p => projectCard(p, projects.indexOf(p))) })] }),
-          tag("section", { id: "experience", class: "section experience", html: [tag("div", { html: [tag("span", { class: "eyebrow", text: "EXPERIENCE" }), tag("h2", { text: "Enterprise depth, independent momentum" })] }), tag("div", { class: "timeline", html: [tag("article", { html: [tag("h3", { text: "Independent Software Engineer" }), tag("span", { text: "2023 — Present" }), tag("p", { text: "Designing and shipping the UI toolkit, telemetry dashboard, and PayAnalysis across TypeScript, Swift, Python, and gRPC." })] }), tag("article", { html: [tag("h3", { text: "Qualcomm · Senior Staff Engineer" }), tag("span", { text: "2019 — 2023" }), tag("p", { text: "Led Python/gRPC compliance platforms, developer tooling, source-control integrations, containerization, and CI/CD delivery." })] })] })] }),
-          tag("section", { class: "contact", html: [tag("span", { class: "eyebrow", text: "AVAILABLE FOR SENIOR / STAFF ROLES" }), tag("h2", { text: "Let's build the tools that help engineering teams move faster." }), tag("a", { class: "primary", href: "mailto:thebotsupra@gmail.com", text: "thebotsupra@gmail.com" })] })
-        ]
-      }), tag("footer", { html: [tag("span", { text: "Built with the TypeScript UI Toolkit" }), tag("span", { text: "San Diego, California" })] })
+  filter: string = language.work.allFilter;
+
+  private rerender() {
+    const destination = this.parent ?? this.target;
+    if (!destination) return;
+
+    this.reset();
+    this.render(destination, true);
+  }
+
+  private createFilters() {
+    const names = [
+      language.work.allFilter,
+      ...language.projects.map(project => project.category),
     ];
+
+    return names.map(name =>
+      ui.btn({
+        class: cx(
+          "btn btn-sm btn-outline filter rounded-full",
+          this.filter === name ? "active" : "",
+        ),
+        text: name,
+        type: "button",
+        click: () => {
+          this.filter = name;
+          this.rerender();
+        },
+      }),
+    );
+  }
+
+  _render(target: any, attach = true): HTMLElement {
+    const projects = language.projects.filter(
+      project =>
+        this.filter === language.work.allFilter ||
+        project.category === this.filter,
+    );
+
+    this.uit_data.html = [
+      createHeader(),
+      tag("main", {
+        id: "top",
+        html: [
+          createHero(),
+          createWork(this.createFilters(), projects),
+          createExperience(),
+          createContact(),
+        ],
+      }),
+      createFooter(),
+    ];
+
     return super._render(target, attach);
   }
 }
+
+applyMetadata();
+
 const root = runtime.dom.select("#app");
 if (!(root instanceof HTMLElement)) throw new Error("Missing #app");
+
 new Portfolio({ tag: "div" } as never).render(root, true);
