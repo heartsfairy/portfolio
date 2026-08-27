@@ -5,9 +5,11 @@ import "./styles.css";
 
 type Meta = Record<string, unknown>;
 type ExperienceRole = (typeof language.experience.roles)[number];
+type EarlierExperienceRole = (typeof language.experience.earlierRoles)[number];
 
 const resumePath = "Violet_Whiting_Resume.pdf";
 const sourceUrl = "https://github.com/heartsfairy/portfolio";
+const linkedinUrl = "https://www.linkedin.com/in/violet-whiting-92597a13/";
 const spectrumColors = ["red", "orange", "yellow", "green", "cyan", "blue", "violet"];
 const projectAccents = [
   "var(--orange)",
@@ -141,6 +143,7 @@ const createHeader = () =>
             href: sourceUrl,
             target: "_blank",
             rel: "noopener noreferrer",
+            "aria-label": language.navigation.source,
             html: [
               tag("img", {
                 class: "size-4 invert",
@@ -151,6 +154,25 @@ const createHeader = () =>
               tag("span", {
                 class: "max-[560px]:hidden",
                 text: language.navigation.source,
+              }),
+            ],
+          }),
+          tag("a", {
+            class: "inline-flex items-center gap-2 hover:text-white",
+            href: linkedinUrl,
+            target: "_blank",
+            rel: "me noopener noreferrer",
+            "aria-label": language.navigation.linkedin,
+            html: [
+              tag("img", {
+                class: "size-4",
+                src: "linkedin-mark.svg",
+                alt: "",
+                "aria-hidden": "true",
+              }),
+              tag("span", {
+                class: "max-[560px]:hidden",
+                text: language.navigation.linkedin,
               }),
             ],
           }),
@@ -198,7 +220,8 @@ const createHero = () => {
             class: cx(
               "my-6 max-w-[940px] text-[clamp(2.4rem,5vw,6rem)]",
               "font-bold leading-[.93] tracking-[-.064em] text-balance",
-              "max-[560px]:text-[clamp(3rem,15vw,4.4rem)]",
+              "max-[560px]:text-[clamp(2.65rem,12vw,3.4rem)]",
+              "max-[560px]:leading-[.96] max-[560px]:tracking-[-.055em]",
             ),
             text: language.hero.title,
           }),
@@ -222,9 +245,10 @@ const createHero = () => {
 
   return tag("section", {
     class: cx(
-      "hero relative isolate mx-auto min-h-[min(780px,86vh)] w-full",
+      "hero relative isolate mx-auto min-h-[min(780px,86vh)] w-full overflow-hidden",
       "max-w-[1180px] px-[clamp(1.25rem,5vw,3rem)]",
-      "py-[clamp(5rem,10vw,9rem)] max-[560px]:min-h-[78vh] max-[560px]:pt-26",
+      "py-[clamp(5rem,10vw,9rem)] max-[560px]:min-h-0",
+      "max-[560px]:pb-12 max-[560px]:pt-20",
     ),
     html: [copy, spectrum],
   });
@@ -239,6 +263,7 @@ const createWork = (
     class: cx(
       "section mx-auto w-full max-w-[1180px] border-t",
       "px-[clamp(1.25rem,5vw,3rem)] py-[clamp(5rem,10vw,9rem)]",
+      "max-[560px]:py-14",
     ),
     html: [
       tag("div", {
@@ -281,12 +306,43 @@ const createRole = (role: ExperienceRole) =>
         class: "mb-1 text-lg font-bold",
         text: role.title,
       }),
-      tag("span", {
-        class: "font-mono text-xs",
-        text: role.period,
+      tag("div", {
+        class: "role-meta mb-4 flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs",
+        html: [
+          tag("span", { text: role.company }),
+          tag("span", { text: role.period }),
+        ],
       }),
       tag("p", {
-        class: "mb-0",
+        class: "m-0",
+        text: role.description,
+      }),
+      tag("ul", {
+        class: "role-highlights mt-4 grid gap-3 pl-5 text-sm leading-relaxed",
+        html: role.highlights.map(highlight =>
+          tag("li", { text: highlight }),
+        ),
+      }),
+    ],
+  });
+
+const createEarlierRole = (role: EarlierExperienceRole) =>
+  tag("article", {
+    class: "earlier-role relative border-l pb-8 pl-8 pt-1",
+    html: [
+      tag("h3", {
+        class: "mb-1 text-base font-bold",
+        text: role.title,
+      }),
+      tag("div", {
+        class: "role-meta mb-3 flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs",
+        html: [
+          tag("span", { text: role.company }),
+          tag("span", { text: role.period }),
+        ],
+      }),
+      tag("p", {
+        class: "m-0 text-sm leading-relaxed",
         text: role.description,
       }),
     ],
@@ -317,7 +373,19 @@ const createExperience = () =>
       }),
       tag("div", {
         class: "timeline",
-        html: language.experience.roles.map(createRole),
+        html: [
+          ...language.experience.roles.map(createRole),
+          tag("div", {
+            class: "border-l pb-6 pl-8 pt-2",
+            html: [
+              tag("span", {
+                class: "eyebrow",
+                text: language.experience.earlierTitle,
+              }),
+            ],
+          }),
+          ...language.experience.earlierRoles.map(createEarlierRole),
+        ],
       }),
     ],
   });
@@ -354,12 +422,24 @@ const createFooter = () =>
     ),
     html: [
       tag("span", { text: language.footer.credit }),
-      tag("a", {
-        class: "font-semibold text-[#48d9d2] underline underline-offset-4 hover:text-white",
-        href: sourceUrl,
-        target: "_blank",
-        rel: "noopener noreferrer",
-        text: language.footer.source,
+      tag("div", {
+        class: "flex flex-wrap gap-x-5 gap-y-2",
+        html: [
+          tag("a", {
+            class: "font-semibold text-[#48d9d2] underline underline-offset-4 hover:text-white",
+            href: sourceUrl,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            text: language.footer.source,
+          }),
+          tag("a", {
+            class: "font-semibold text-[#48d9d2] underline underline-offset-4 hover:text-white",
+            href: linkedinUrl,
+            target: "_blank",
+            rel: "me noopener noreferrer",
+            text: language.footer.linkedin,
+          }),
+        ],
       }),
       tag("span", { text: language.footer.location }),
     ],

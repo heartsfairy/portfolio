@@ -27,12 +27,14 @@ const tags = [
   "h4",
   "header",
   "img",
+  "li",
   "main",
   "nav",
   "p",
   "section",
   "span",
   "summary",
+  "ul",
 ];
 
 const shortcuts = Object.fromEntries(

@@ -2,8 +2,8 @@ export const language = {
   meta: {
     title: "Violet Whiting | Senior Staff Software Engineer",
     description:
-      "Violet Whiting — Senior Staff software engineer specializing in developer tools, " +
-      "backend platforms, and cross-platform systems.",
+      "Violet Whiting — senior/staff software engineer specializing in developer tools, " +
+      "backend platforms, real-time applications, and cross-platform systems.",
   },
   navigation: {
     brand: "VW / ENGINEERING",
@@ -11,14 +11,15 @@ export const language = {
     work: "Work",
     experience: "Experience",
     source: "Source",
+    linkedin: "LinkedIn",
     resume: "Résumé",
   },
   hero: {
     eyebrow: "FORMER QUALCOMM SENIOR STAFF ENGINEER",
     title: "Developer tools, backend platforms, and systems built to last.",
     introduction:
-      "I'm Violet Whiting, a software engineer with 15+ years of experience building APIs, " +
-      "CI/CD infrastructure, real-time applications, and cross-platform products.",
+      "I'm Violet Whiting, a staff-level software engineer with 15+ years of experience " +
+      "architecting APIs, developer platforms, real-time applications, and cross-platform products.",
     primaryAction: "Explore selected work",
     secondaryAction: "Get in touch",
   },
@@ -39,13 +40,16 @@ export const language = {
       name: "Compliance Automation",
       category: "Developer Tools",
       summary:
-        "Compliance API using Python, gRPC and repository version control systems for automated source code access " +
-        "across an enterprise",
+        "An enterprise compliance platform for automated source-code analysis across multiple " +
+        "version-control systems.",
       details:
-        "Provides in-depth source code access using various version control systems, through a series of APIs for analysis. " +
-        "The compliance testing serves a mission-critical step in client source delivery.",
-      insight: "Automated legal compliance",
-      stack: "Python · Events/Scheduling · Version Control · gRPC",
+        "Architected and led a Python and gRPC API that gave internal scanning services consistent access to Git, SVN, " +
+        "and Mercurial repositories. The platform supported repository analysis up to 2 GB, depending on the backend, " +
+        "and handled millions of internal service requests each day. Reusable Python clients, Airflow automation, " +
+        "entitlement and authentication integrations, containerization, and CI/CD made compliance testing a reliable, " +
+        "mission-critical step in source delivery.",
+      insight: "Compliance at enterprise scale",
+      stack: "Python · gRPC · Airflow · Git/SVN/Mercurial · PostgreSQL",
     },
     {
       name: "TypeScript UI Toolkit",
@@ -57,57 +61,109 @@ export const language = {
         "Provides component lifecycles, observable storage, routing, serialization, event handling, " +
         "typed models, and theme abstraction. This portfolio is rendered by the toolkit itself.",
       insight: "A UI foundation",
-      stack: "TypeScript · DOM adapters · RxJS · Tailwind themes",
+      stack: "TypeScript · DOM adapters · RxJS · Tailwind CSS themes",
     },
     {
       name: "Pay Analysis",
       category: "Mobile + Backend",
       summary: "An offer-intelligence system created from direct gig-driving experience.",
       details:
-        "Uses ReplayKit and Vision OCR to capture offer cards, calculate mileage, hourly earnings, " +
-        "vehicle cost, and estimated profit, then synchronizes normalized data with Python and gRPC services.",
-      insight: "Offers statistical analysis",
+        "Uses ReplayKit and Vision OCR to capture offer cards; calculates mileage, hourly earnings, vehicle costs, " +
+        "and estimated profit; and synchronizes normalized data with Python and gRPC services.",
+      insight: "Offer intelligence from real-world data",
       stack: "Swift · ReplayKit · Vision OCR · Python · gRPC",
     },
     {
-      name: "Motorsports Telemetery",
+      name: "Motorsports Telemetry",
       category: "Real-time Systems",
       summary: "A configurable cross-platform dashboard for live racing telemetry.",
       details:
-        "60Hz streams through WebSockets and gRPC-Web, presenting configurable telemetery data " +
-        "panels in browser and desktop-webview environments.",
-      insight: "High-performance data",
+        "Processes 60 Hz telemetry over WebSockets and gRPC-Web, presenting configurable data panels " +
+        "in browser and desktop WebView environments.",
+      insight: "Real-time clarity at 60 Hz",
       stack: "TypeScript · gRPC-Web · WebSockets · Vite · Tauri",
     },
     {
       name: "Clinical Trials SaaS",
       category: "Mobile + Backend",
       summary:
-        "Build native iOS + Android apps for Clinical Trials, " +
-        "featured Healthkit and automated App store deployment.",
+        "Built native iOS and Android applications for clinical trials, with HealthKit integration " +
+        "and automated App Store deployment.",
       details:
-        "Build clinical trial research questionairs and surverys, collect Health information natively from iOS + Android ",
-      insight: "SaaS Healthcare App",
-      stack: "Python · iOS · Android",
+        "Led development of a web platform for clinical research study design and automated the transition " +
+        "from web-based studies to native iOS and Android applications. Collaborated with academic researchers " +
+        "to align the Phendo study software with clinical workflows and native health-data collection.",
+      insight: "Research workflows, shipped natively",
+      stack: "Python · iOS · Android · HealthKit",
     },
   ],
   experience: {
     eyebrow: "EXPERIENCE",
-    title: "Enterprise depth, independent momentum",
+    title: "Staff-level architecture, delivery, and ownership",
     roles: [
       {
         title: "Independent Software Engineer",
-        period: "2023 — Present",
+        company: "Self-employed · San Diego, California",
+        period: "Sep 2023 — Present",
         description:
-          "Designing and shipping the UI toolkit, telemetry dashboard, and PayAnalysis across " +
-          "TypeScript, Swift, Python, and gRPC.",
+          "Architecting and shipping developer tools and data-intensive products across TypeScript, Swift, " +
+          "Python, and gRPC.",
+        highlights: [
+          "Designed and continue to maintain a framework-independent TypeScript UI toolkit with typed " +
+            "models, stateful component lifecycles, observable storage, routing, serialization, event " +
+            "handling, and theme abstraction.",
+          "Built a real-time, cross-platform motorsports telemetry dashboard with configurable panels, live standings, " +
+            "track visualization, input telemetry, and WebSocket/gRPC-Web streaming.",
+          "Developed an iOS gig-offer intelligence application using ReplayKit and Vision OCR to calculate mileage, " +
+            "hourly earnings, vehicle costs, and estimated profit, backed by Python and gRPC services.",
+        ],
       },
       {
-        title: "Qualcomm · Senior Staff Engineer",
-        period: "2019 — 2023",
+        title: "Senior Staff Engineer, Content Compliance",
+        company: "Qualcomm · San Diego, California",
+        period: "Sep 2019 — May 2023",
         description:
-          "Led Python/gRPC compliance platforms, developer tooling, source-control integrations, " +
-          "containerization, and CI/CD delivery.",
+          "Led the architecture and delivery of enterprise compliance platforms, developer tooling, " +
+          "and cloud-ready services.",
+        highlights: [
+          "Architected and led a Python and gRPC API for automated code scanning across Git, SVN, and Mercurial, " +
+            "with reusable Python clients for internal teams.",
+          "Supported analysis of repositories up to 2 GB, depending on the backend system, while the API handled " +
+            "millions of requests each day from internal services.",
+          "Developed full-stack services and shared libraries supporting a React application and Airflow-based " +
+            "compliance automation.",
+          "Designed Azure entitlement and authentication integrations, and partnered with DevOps engineers on " +
+            "containerization, CI/CD, and scalable cloud deployment.",
+          "Built reliable API, search, and data-processing workflows with Django, Flask, PostgreSQL, Celery, " +
+            "and Elasticsearch.",
+        ],
+      },
+    ],
+    earlierTitle: "EARLIER EXPERIENCE",
+    earlierRoles: [
+      {
+        title: "Senior Engineer",
+        company: "Property Capsule · San Diego, California",
+        period: "Feb 2018 — Sep 2019",
+        description:
+          "Modernized a monolithic legacy application into an automated, AWS-deployable service; " +
+          "established testing and delivery workflows; and restructured the codebase for multi-client use.",
+      },
+      {
+        title: "Mobile and Web Technology Lead",
+        company: "Applied Informatics · Remote / New York, New York",
+        period: "May 2014 — Jun 2017",
+        description:
+          "Led delivery of a clinical research platform and automated the conversion of web study designs " +
+          "into native iOS and Android applications, partnering with academic researchers on the Phendo study.",
+      },
+      {
+        title: "Lead Developer",
+        company: "X Studios · Orlando, Florida",
+        period: "Sep 2008 — Aug 2013",
+        description:
+          "Led a small engineering team delivering web, mobile, server, and REST systems while owning architecture, " +
+          "estimates, technical documentation, client communication, and Linux production releases.",
       },
     ],
   },
@@ -119,6 +175,7 @@ export const language = {
   footer: {
     credit: "Built with the TypeScript UI Toolkit",
     source: "View source on GitHub",
+    linkedin: "Connect on LinkedIn",
     location: "San Diego, California",
   },
 } as const;
