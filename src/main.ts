@@ -7,7 +7,26 @@ type Meta = Record<string, unknown>;
 type ExperienceRole = (typeof language.experience.roles)[number];
 
 const resumePath = "Violet_Whiting_Resume.pdf";
+const sourceUrl = "https://github.com/heartsfairy/portfolio";
 const spectrumColors = ["red", "orange", "yellow", "green", "cyan", "blue", "violet"];
+const projectAccents = [
+  "var(--orange)",
+  "var(--cyan)",
+  "var(--violet)",
+  "var(--yellow)",
+  "var(--green)",
+  "var(--blue)",
+  "var(--red)",
+];
+const projectCategories = [
+  ...new Set(language.projects.map(project => project.category)),
+];
+const categoryAccents = new Map(
+  projectCategories.map((category, index) => [
+    category,
+    projectAccents[index % projectAccents.length],
+  ]),
+);
 
 const cx = (...classes: string[]) => classes.filter(Boolean).join(" ");
 const tag = (name: string, meta: Meta) => ui[`${name}_tag`](meta);
@@ -23,8 +42,10 @@ const createProjectCard = (project: PortfolioProject, index: number) =>
   tag("details", {
     class: cx(
       "card project-card relative min-w-0 overflow-hidden rounded-[1.15rem]",
-      `project-card-${index + 1}`,
+      "max-w-[calc(50%-0.5rem)] flex-[1_1_300px]",
+      "max-[850px]:max-w-none max-[850px]:basis-full",
     ),
+    style: `--accent: ${categoryAccents.get(project.category) ?? "var(--red)"}`,
     html: [
       tag("summary", {
         class: cx(
@@ -114,6 +135,24 @@ const createHeader = () =>
             class: "max-[560px]:hidden",
             href: "#experience",
             text: language.navigation.experience,
+          }),
+          tag("a", {
+            class: "inline-flex items-center gap-2 hover:text-white",
+            href: sourceUrl,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            html: [
+              tag("img", {
+                class: "size-4 invert",
+                src: "github-mark.svg",
+                alt: "",
+                "aria-hidden": "true",
+              }),
+              tag("span", {
+                class: "max-[560px]:hidden",
+                text: language.navigation.source,
+              }),
+            ],
           }),
           tag("a", {
             href: resumePath,
@@ -226,7 +265,7 @@ const createWork = (
         html: filters,
       }),
       tag("div", {
-        class: "project-grid grid grid-cols-3 items-start gap-4 max-[850px]:grid-cols-1",
+        class: "project-grid flex flex-wrap items-start gap-4",
         html: projects.map(project =>
           createProjectCard(project, language.projects.indexOf(project)),
         ),
@@ -315,6 +354,13 @@ const createFooter = () =>
     ),
     html: [
       tag("span", { text: language.footer.credit }),
+      tag("a", {
+        class: "font-semibold text-[#48d9d2] underline underline-offset-4 hover:text-white",
+        href: sourceUrl,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        text: language.footer.source,
+      }),
       tag("span", { text: language.footer.location }),
     ],
   });
@@ -331,10 +377,7 @@ class Portfolio extends EventableUIDrawable {
   }
 
   private createFilters() {
-    const names = [
-      language.work.allFilter,
-      ...language.projects.map(project => project.category),
-    ];
+    const names = [language.work.allFilter, ...projectCategories];
 
     return names.map(name =>
       ui.btn({

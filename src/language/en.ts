@@ -10,6 +10,7 @@ export const language = {
     ariaLabel: "Primary",
     work: "Work",
     experience: "Experience",
+    source: "Source",
     resume: "Résumé",
   },
   hero: {
@@ -35,6 +36,18 @@ export const language = {
   },
   projects: [
     {
+      name: "Compliance Automation",
+      category: "Developer Tools",
+      summary:
+        "Compliance API using Python, gRPC and repository version control systems for automated source code access " +
+        "across an enterprise",
+      details:
+        "Provides in-depth source code access using various version control systems, through a series of APIs for analysis. " +
+        "The compliance testing serves a mission-critical step in client source delivery.",
+      insight: "Automated legal compliance",
+      stack: "Python · Events/Scheduling · Version Control · gRPC",
+    },
+    {
       name: "TypeScript UI Toolkit",
       category: "Developer Tools",
       summary:
@@ -47,6 +60,16 @@ export const language = {
       stack: "TypeScript · DOM adapters · RxJS · Tailwind themes",
     },
     {
+      name: "Pay Analysis",
+      category: "Mobile + Backend",
+      summary: "An offer-intelligence system created from direct gig-driving experience.",
+      details:
+        "Uses ReplayKit and Vision OCR to capture offer cards, calculate mileage, hourly earnings, " +
+        "vehicle cost, and estimated profit, then synchronizes normalized data with Python and gRPC services.",
+      insight: "Offers statistical analysis",
+      stack: "Swift · ReplayKit · Vision OCR · Python · gRPC",
+    },
+    {
       name: "Motorsports Telemetery",
       category: "Real-time Systems",
       summary: "A configurable cross-platform dashboard for live racing telemetry.",
@@ -57,14 +80,15 @@ export const language = {
       stack: "TypeScript · gRPC-Web · WebSockets · Vite · Tauri",
     },
     {
-      name: "Pay Analysis",
+      name: "Clinical Trials SaaS",
       category: "Mobile + Backend",
-      summary: "An offer-intelligence system created from direct gig-driving experience.",
+      summary:
+        "Build native iOS + Android apps for Clinical Trials, " +
+        "featured Healthkit and automated App store deployment.",
       details:
-        "Uses ReplayKit and Vision OCR to capture offer cards, calculate mileage, hourly earnings, " +
-        "vehicle cost, and estimated profit, then synchronizes normalized data with Python and gRPC services.",
-      insight: "Offers statistical analysis",
-      stack: "Swift · ReplayKit · Vision OCR · Python · gRPC",
+        "Build clinical trial research questionairs and surverys, collect Health information natively from iOS + Android ",
+      insight: "SaaS Healthcare App",
+      stack: "Python · iOS · Android",
     },
   ],
   experience: {
@@ -94,6 +118,7 @@ export const language = {
   },
   footer: {
     credit: "Built with the TypeScript UI Toolkit",
+    source: "View source on GitHub",
     location: "San Diego, California",
   },
 } as const;

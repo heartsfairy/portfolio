@@ -26,6 +26,7 @@ const tags = [
   "h3",
   "h4",
   "header",
+  "img",
   "main",
   "nav",
   "p",
