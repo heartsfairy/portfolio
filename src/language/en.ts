@@ -55,46 +55,55 @@ export const language = {
       name: "TypeScript UI Toolkit",
       category: "Developer Tools",
       summary:
-        "A framework-independent UI platform built around typed drawables and direct, " +
-        "controlled DOM updates.",
+        "A component-based UI platform combining direct DOM access with a path toward schema-defined, " +
+        "AI-assisted interface generation.",
       details:
-        "Provides component lifecycles, observable storage, routing, serialization, event handling, " +
-        "typed models, and theme abstraction. This portfolio is rendered by the toolkit itself.",
-      insight: "A UI foundation",
+        "Designed as a foundation for building interfaces from schema definitions and using AI automation " +
+        "to construct much of an application. Its component-based architecture retains direct DOM-level access " +
+        "instead of hiding browser primitives, while typed drawables, stateful lifecycles, event handling, " +
+        "observable storage, routing, serialization, and theme abstraction provide reusable application structure. " +
+        "This portfolio is rendered by the toolkit itself.",
+      insight: "Schema-ready, without losing the DOM",
       stack: "TypeScript · DOM adapters · RxJS · Tailwind CSS themes",
     },
     {
       name: "Pay Analysis",
       category: "Mobile + Backend",
-      summary: "An offer-intelligence system created from direct gig-driving experience.",
+      summary:
+        "An on-device offer-intelligence system validated through more than 100 hours of live testing.",
       details:
-        "Uses ReplayKit and Vision OCR to capture offer cards; calculates mileage, hourly earnings, vehicle costs, " +
-        "and estimated profit; and synchronizes normalized data with Python and gRPC services.",
-      insight: "Offer intelligence from real-world data",
+        "Uses ReplayKit to capture offer cards and Vision to perform OCR on-device, then calculates mileage, " +
+        "hourly earnings, vehicle costs, and estimated profit before synchronizing normalized data with Python " +
+        "and gRPC services. The system has run reliably through more than 100 hours of live testing, including " +
+        "continuous sessions exceeding four hours, with offers typically scanned and presented in one second or less.",
+      insight: "Tested live, evaluated in under a second",
       stack: "Swift · ReplayKit · Vision OCR · Python · gRPC",
     },
     {
       name: "Motorsports Telemetry",
       category: "Real-time Systems",
-      summary: "A configurable cross-platform dashboard for live racing telemetry.",
+      summary:
+        "A fully built and tested iRacing dashboard that sustains 60 Hz telemetry across browser " +
+        "and desktop environments.",
       details:
-        "Processes 60 Hz telemetry over WebSockets and gRPC-Web, presenting configurable data panels " +
-        "in browser and desktop WebView environments.",
-      insight: "Real-time clarity at 60 Hz",
-      stack: "TypeScript · gRPC-Web · WebSockets · Vite · Tauri",
+        "Processes sustained 60 Hz iRacing telemetry over WebSockets and gRPC-Web, presenting configurable " +
+        "data panels in browser and desktop WebView environments. The architecture is intended to expand beyond " +
+        "simulation to real race cars and in-dash displays. That hardware path remains in development because " +
+        "the OBD-II in-car communication module is not yet operational.",
+      insight: "Sustained at 60 Hz, designed beyond simulation",
+      stack: "iRacing · TypeScript · gRPC-Web · WebSockets · Vite · Tauri",
     },
     {
       name: "Clinical Trials SaaS",
       category: "Mobile + Backend",
       summary:
-        "Built native iOS and Android applications for clinical trials, with HealthKit integration " +
-        "and automated App Store deployment.",
+        "A clinical research platform used by Columbia University to successfully deploy the Phendo study.",
       details:
-        "Led development of a web platform for clinical research study design and automated the transition " +
-        "from web-based studies to native iOS and Android applications. Collaborated with academic researchers " +
-        "to align the Phendo study software with clinical workflows and native health-data collection.",
-      insight: "Research workflows, shipped natively",
-      stack: "Python · iOS · Android · HealthKit",
+        "Led engineering and designed the overall application architecture, implementing the native iOS application " +
+        "and Python server backend while working with a team that assisted with Android development. The platform " +
+        "supported Columbia University's Phendo research study, including HealthKit-based data collection.",
+      insight: "Study design to automated store deployment",
+      stack: "Python · iOS · Android · HealthKit · Store automation",
     },
   ],
   experience: {
@@ -110,12 +119,12 @@ export const language = {
           "Python, and gRPC.",
         highlights: [
           "Designed and continue to maintain a framework-independent TypeScript UI toolkit with typed " +
-            "models, stateful component lifecycles, observable storage, routing, serialization, event " +
-            "handling, and theme abstraction.",
+          "models, stateful component lifecycles, observable storage, routing, serialization, event " +
+          "handling, and theme abstraction.",
           "Built a real-time, cross-platform motorsports telemetry dashboard with configurable panels, live standings, " +
-            "track visualization, input telemetry, and WebSocket/gRPC-Web streaming.",
+          "track visualization, input telemetry, and WebSocket/gRPC-Web streaming.",
           "Developed an iOS gig-offer intelligence application using ReplayKit and Vision OCR to calculate mileage, " +
-            "hourly earnings, vehicle costs, and estimated profit, backed by Python and gRPC services.",
+          "hourly earnings, vehicle costs, and estimated profit, backed by Python and gRPC services.",
         ],
       },
       {
@@ -127,15 +136,15 @@ export const language = {
           "and cloud-ready services.",
         highlights: [
           "Architected and led a Python and gRPC API for automated code scanning across Git, SVN, and Mercurial, " +
-            "with reusable Python clients for internal teams.",
+          "with reusable Python clients for internal teams.",
           "Supported analysis of repositories up to 2 GB, depending on the backend system, while the API handled " +
-            "millions of requests each day from internal services.",
+          "millions of requests each day from internal services.",
           "Developed full-stack services and shared libraries supporting a React application and Airflow-based " +
-            "compliance automation.",
+          "compliance automation.",
           "Designed Azure entitlement and authentication integrations, and partnered with DevOps engineers on " +
-            "containerization, CI/CD, and scalable cloud deployment.",
+          "containerization, CI/CD, and scalable cloud deployment.",
           "Built reliable API, search, and data-processing workflows with Django, Flask, PostgreSQL, Celery, " +
-            "and Elasticsearch.",
+          "and Elasticsearch.",
         ],
       },
     ],

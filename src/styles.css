@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: false;
-  include: badge, button, card, footer, hero, navbar;
+  include: badge, button, card, collapse, footer, hero, navbar;
   logs: false;
 }
 
